@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 import Title from "../components/ui/Title";
@@ -29,6 +35,7 @@ function GameScreen({ setScreen, userNumber, guessRounds, setGuessRounds }) {
     userNumber
   );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const { width, height } = useWindowDimensions();
 
   useEffect(
     function () {
@@ -67,9 +74,8 @@ function GameScreen({ setScreen, userNumber, guessRounds, setGuessRounds }) {
 
   const guessRoundsCount = guessRounds.length;
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+  const content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <Instruction>Higher or Lower?</Instruction>
@@ -86,10 +92,20 @@ function GameScreen({ setScreen, userNumber, guessRounds, setGuessRounds }) {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (height < 500) {
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's Guess</Title>
+      {content}
       <View style={styles.listContainer}>
         {/* {guessRounds.map((guess, index) => (
           <Text key={index}>{guess}</Text>
-        ))} */}
+          ))} */}
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -99,6 +115,7 @@ function GameScreen({ setScreen, userNumber, guessRounds, setGuessRounds }) {
             />
           )}
           keyExtractor={(item) => item.toString()}
+          style={{ gap: 16 }}
         />
       </View>
     </View>
@@ -110,6 +127,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 36,
     padding: 24,
+    alignItems: "center",
+    gap: 36,
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -119,7 +138,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    padding: 16,
+    // padding: 16,
   },
 });
 

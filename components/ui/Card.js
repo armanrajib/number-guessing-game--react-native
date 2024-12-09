@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 16,
-    marginTop: 50,
+    // marginTop: 50,
     marginHorizontal: 24,
     padding: 16,
     backgroundColor: colors.primary800,
